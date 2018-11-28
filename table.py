@@ -1,6 +1,42 @@
 
 # My Intent: create a data entry system (table)
 
+def merge(a, aux, low, mid, high, comp):
+    '''helper function for sort
+    merges a[lo:mid] and a[mid:high]
+    comp is a function comp(a, i, j) comparing a[i] and a[j]
+    that returns 1 if a[i] > a[j], 0 if a[i] == a[j] and -1 if a[i] < a[j]'''
+    # copy a[low:high] to the auxiliary array
+    for i in range(low, high):
+        aux[i] = a[i]
+
+    # i, j track the two subarrays, and k tracks the original array
+    i = low
+    j = mid
+    k = low
+
+    # combine the sorted subarrays
+    while k < high:
+        # were done with the first subarray, so add the remaining elements of the second subarray
+        if i >= mid: 
+            a[k] = aux[j]
+            j += 1
+        # were done with the second subarray, so add all of the remaining elements of the first array
+        elif j >= high:
+            a[k] = aux[i]
+            i += 1
+        # compare aux[i] with aux[j]
+        elif comp(aux, i, j) == 1:
+            a[k] = aux[i]
+            i += 1
+        else:
+            a[k] = aux[j]
+            j += 1
+        k += 1
+
+    
+
+
 class Table:
     def __init__(self):
         # create an empty table
@@ -55,6 +91,9 @@ class Table:
             if condition(self.data[i]):
                 indices.append(i)
         return indices
+
+    def sort(self, key):
+        '''sorts the table by the key value'''
 
     def __str__(self):
         a = ''
