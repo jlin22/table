@@ -34,9 +34,6 @@ def merge(a, aux, low, mid, high, comp):
             j += 1
         k += 1
 
-    
-
-
 class Table:
     def __init__(self):
         # create an empty table
